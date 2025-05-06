@@ -3,7 +3,7 @@
         <div class="m-header">
             <a href="../dashboard/index.html" class="b-brand text-primary">
                 <img
-                    src="{{ asset('assets/images/logo-19.svg') }}"
+                    src="{{ asset('assets/images/logo-20.svg') }}"
                     class="img-fluid logo-lg"
                     alt="logo"
                 />
