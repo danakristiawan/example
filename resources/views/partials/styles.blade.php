@@ -17,3 +17,8 @@
     href="{{ asset('assets/css/style.css') }}"
     id="main-style-link"
 />
+<link
+    rel="stylesheet"
+    href="{{ asset('assets/css/plugins/datatables.css') }}"
+/>
+<link rel="stylesheet" href="{{ asset('assets/css/plugins/toastr.css') }}" />

@@ -8,6 +8,7 @@
         <div class="card-body">
             <h6 class="mb-2 f-w-400 text-muted">This Week Statistics</h6>
             <h3 class="mb-3">$7,650</h3>
+            <x-chartjs-component :chart="$chart1" />
         </div>
     </div>
 </div>
@@ -17,6 +18,7 @@
         <div class="card-body">
             <h6 class="mb-2 f-w-400 text-muted">This Week Statistics</h6>
             <h3 class="mb-3">$7,650</h3>
+            <x-chartjs-component :chart="$chart2" />
         </div>
     </div>
 </div>

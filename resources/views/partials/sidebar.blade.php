@@ -19,6 +19,14 @@
                         <span class="pc-mtext">Dashboard</span>
                     </a>
                 </li>
+                <li class="pc-item">
+                    <a href="/home" class="pc-link">
+                        <span class="pc-micon"
+                            ><i class="ti ti-dashboard"></i
+                        ></span>
+                        <span class="pc-mtext">Home</span>
+                    </a>
+                </li>
 
                 <li class="pc-item pc-caption">
                     <label>UI Components</label>
@@ -46,6 +54,14 @@
                             ><i class="ti ti-color-swatch"></i
                         ></span>
                         <span class="pc-mtext">Card</span>
+                    </a>
+                </li>
+                <li class="pc-item">
+                    <a href="/flights" class="pc-link">
+                        <span class="pc-micon"
+                            ><i class="ti ti-color-swatch"></i
+                        ></span>
+                        <span class="pc-mtext">Flight</span>
                     </a>
                 </li>
 
@@ -135,11 +151,11 @@
                     </ul>
                 </li>
                 <li class="pc-item">
-                    <a href="../other/sample-page.html" class="pc-link">
+                    <a href="/login" class="pc-link">
                         <span class="pc-micon"
                             ><i class="ti ti-brand-chrome"></i
                         ></span>
-                        <span class="pc-mtext">Sample page</span>
+                        <span class="pc-mtext">Login</span>
                     </a>
                 </li>
             </ul>
