@@ -1,20 +1,14 @@
 @extends('layouts.app') @section('page-card')
 
 <div class="col-md-6 col-xl-3">
-    <div class="card">
+    <div class="card text-center">
         <div class="card-body">
-            <h6 class="mb-2 f-w-400 text-muted">Total Page Views</h6>
-            <h4 class="mb-3">
-                4,42,236
-                <span class="badge bg-light-primary border border-primary"
-                    ><i class="ti ti-trending-up"></i> 59.3%</span
-                >
-            </h4>
-            <p class="mb-0 text-muted text-sm">
-                You made an extra
-                <span class="text-primary">35,000</span>
-                this year
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+                With supporting text below as a natural lead-in to additional
+                content.
             </p>
+            <a href="#!" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
 </div>

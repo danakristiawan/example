@@ -33,11 +33,11 @@
                     <i class="ti ti-dashboard"></i>
                 </li>
                 <li class="pc-item">
-                    <a href="/table" class="pc-link">
+                    <a href="{{ route('permissions.index') }}" class="pc-link">
                         <span class="pc-micon"
                             ><i class="ti ti-typography"></i
                         ></span>
-                        <span class="pc-mtext">Table</span>
+                        <span class="pc-mtext">Permission</span>
                     </a>
                 </li>
                 <li class="pc-item">

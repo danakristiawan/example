@@ -23,18 +23,20 @@ class DatabaseSeeder extends Seeder
         // ]);
         $permissions = [
            'read',
+           'delete',
+           'edit',
         ];
         foreach ($permissions as $permission) {
              Permission::create(['name' => $permission]);
         }
-        $user = User::create([
-            'name' => 'Paijo', 
-            'email' => 'paijo@gmail.com',
-            'password' => bcrypt('123456')
-        ]);
-        $role = Role::create(['name' => 'User']);
-        $permissions = Permission::pluck('id','id')->all();
-        $role->syncPermissions($permissions);
-        $user->assignRole([$role->id]);
+        // $user = User::create([
+        //     'name' => 'Paijo', 
+        //     'email' => 'paijo@gmail.com',
+        //     'password' => bcrypt('123456')
+        // ]);
+        // $role = Role::create(['name' => 'User']);
+        // $permissions = Permission::pluck('id','id')->all();
+        // $role->syncPermissions($permissions);
+        // $user->assignRole([$role->id]);
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\FlightsController;
+use App\Http\Controllers\PermissionsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,3 +34,5 @@ Route::group(['middleware' => ['auth','role:User']], function () {
 Route::group(['middleware' => ['auth','role:User']], function () {
     Route::get('/chart', [ChartController::class, 'index']);
 });
+
+Route::resource('permissions', PermissionsController::class);

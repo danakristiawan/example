@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Flight;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,12 +12,12 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class FlightsDataTable extends DataTable
+class PermissionsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder<Flight> $query Results from query() method.
+     * @param QueryBuilder<Permission> $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
@@ -36,9 +36,9 @@ class FlightsDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      *
-     * @return QueryBuilder<Flight>
+     * @return QueryBuilder<Permission>
      */
-    public function query(Flight $model): QueryBuilder
+    public function query(Permission $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -49,7 +49,7 @@ class FlightsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('flights-table')
+                    ->setTableId('permissions-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->addTableClass('table-bordered table-sm table-hover')
@@ -64,7 +64,7 @@ class FlightsDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::make('email'),
+            Column::make('guard_name'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')
@@ -80,6 +80,6 @@ class FlightsDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Flights_' . date('YmdHis');
+        return 'Permissions_' . date('YmdHis');
     }
 }
