@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\FlightsController;
 use App\Http\Controllers\PermissionsController;
 
@@ -36,3 +38,5 @@ Route::group(['middleware' => ['auth','role:User']], function () {
 });
 
 Route::resource('permissions', PermissionsController::class);
+Route::resource('roles', RolesController::class);
+Route::resource('users', UsersController::class);

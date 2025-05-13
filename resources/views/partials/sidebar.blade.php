@@ -33,14 +33,6 @@
                     <i class="ti ti-dashboard"></i>
                 </li>
                 <li class="pc-item">
-                    <a href="{{ route('permissions.index') }}" class="pc-link">
-                        <span class="pc-micon"
-                            ><i class="ti ti-typography"></i
-                        ></span>
-                        <span class="pc-mtext">Permission</span>
-                    </a>
-                </li>
-                <li class="pc-item">
                     <a href="/chart" class="pc-link">
                         <span class="pc-micon"
                             ><i class="ti ti-color-swatch"></i
@@ -72,79 +64,48 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link"
                         ><span class="pc-micon"><i class="ti ti-menu"></i></span
-                        ><span class="pc-mtext">Menu levels</span
+                        ><span class="pc-mtext">Administrator</span
                         ><span class="pc-arrow"
                             ><i data-feather="chevron-right"></i></span
                     ></a>
                     <ul class="pc-submenu">
-                        <li class="pc-item">
-                            <a class="pc-link" href="#!">Level 2.1</a>
-                        </li>
                         <li class="pc-item pc-hasmenu">
                             <a href="#!" class="pc-link"
-                                >Level 2.2<span class="pc-arrow"
+                                >Role and Permission<span class="pc-arrow"
                                     ><i data-feather="chevron-right"></i></span
                             ></a>
                             <ul class="pc-submenu">
                                 <li class="pc-item">
-                                    <a class="pc-link" href="#!">Level 3.1</a>
+                                    <a
+                                        class="pc-link"
+                                        href="{{ route('roles.index') }}"
+                                        >Roles</a
+                                    >
                                 </li>
                                 <li class="pc-item">
-                                    <a class="pc-link" href="#!">Level 3.2</a>
-                                </li>
-                                <li class="pc-item pc-hasmenu">
-                                    <a href="#!" class="pc-link"
-                                        >Level 3.3<span class="pc-arrow"
-                                            ><i
-                                                data-feather="chevron-right"
-                                            ></i></span
-                                    ></a>
-                                    <ul class="pc-submenu">
-                                        <li class="pc-item">
-                                            <a class="pc-link" href="#!"
-                                                >Level 4.1</a
-                                            >
-                                        </li>
-                                        <li class="pc-item">
-                                            <a class="pc-link" href="#!"
-                                                >Level 4.2</a
-                                            >
-                                        </li>
-                                    </ul>
+                                    <a
+                                        class="pc-link"
+                                        href="{{ route('permissions.index') }}"
+                                        >Permissions</a
+                                    >
                                 </li>
                             </ul>
                         </li>
                         <li class="pc-item pc-hasmenu">
                             <a href="#!" class="pc-link"
-                                >Level 2.3<span class="pc-arrow"
+                                >Setting<span class="pc-arrow"
                                     ><i data-feather="chevron-right"></i></span
                             ></a>
                             <ul class="pc-submenu">
                                 <li class="pc-item">
-                                    <a class="pc-link" href="#!">Level 3.1</a>
+                                    <a
+                                        class="pc-link"
+                                        href="{{ route('users.index') }}"
+                                        >User</a
+                                    >
                                 </li>
                                 <li class="pc-item">
-                                    <a class="pc-link" href="#!">Level 3.2</a>
-                                </li>
-                                <li class="pc-item pc-hasmenu">
-                                    <a href="#!" class="pc-link"
-                                        >Level 3.3<span class="pc-arrow"
-                                            ><i
-                                                data-feather="chevron-right"
-                                            ></i></span
-                                    ></a>
-                                    <ul class="pc-submenu">
-                                        <li class="pc-item">
-                                            <a class="pc-link" href="#!"
-                                                >Level 4.1</a
-                                            >
-                                        </li>
-                                        <li class="pc-item">
-                                            <a class="pc-link" href="#!"
-                                                >Level 4.2</a
-                                            >
-                                        </li>
-                                    </ul>
+                                    <a class="pc-link" href="#!">Menu</a>
                                 </li>
                             </ul>
                         </li>
