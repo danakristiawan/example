@@ -37,18 +37,6 @@
                                     value=""
                                 />
                             </div>
-                            <div class="mb-3">
-                                <label for="guard_name" class="form-label"
-                                    >Guard Name</label
-                                >
-                                <input
-                                    type="text"
-                                    name="guard_name"
-                                    class="form-control"
-                                    id="guard_name"
-                                    value=""
-                                />
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button
@@ -107,8 +95,6 @@
             console.log(data);
             $("#name").val(data.name);
             $("#name").prop("disabled", true);
-            $("#guard_name").val(data.guard_name);
-            $("#guard_name").prop("disabled", true);
             $("#myModalLabel").html("Detail");
             $("#btnSimpan").hide();
             $("#errorList").html("");
@@ -140,7 +126,6 @@
         $("#btnSimpan").show();
         $("#errorList").html("");
         $("#name").prop("disabled", false);
-        $("#guard_name").prop("disabled", false);
     });
 
     $("body").on("click", "#ubah", function () {
@@ -148,13 +133,11 @@
         $.get("{{ route('permissions.index') }}" + "/" + id, function (data) {
             $("#id").val(data.id);
             $("#name").val(data.name);
-            $("#guard_name").val(data.guard_name);
             $("#myModalLabel").html("Ubah");
             $("#btnSimpan").html("Ubah");
             $("#btnSimpan").show();
             $("#errorList").html("");
             $("#name").prop("disabled", false);
-            $("#guard_name").prop("disabled", false);
         });
     });
     $("body").on("click", "#btnSimpan", function (e) {

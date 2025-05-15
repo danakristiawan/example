@@ -38,16 +38,10 @@
                                 />
                             </div>
                             <div class="mb-3">
-                                <label for="guard_name" class="form-label"
-                                    >Guard Name</label
+                                <label for="name" class="form-label"
+                                    >Permissions</label
                                 >
-                                <input
-                                    type="text"
-                                    name="guard_name"
-                                    class="form-control"
-                                    id="guard_name"
-                                    value=""
-                                />
+                                <ul class="list-group" id="list-group"></ul>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -104,14 +98,18 @@
     $("body").on("click", "#detail", function () {
         let id = $(this).data("id");
         $.get("{{ route('roles.index') }}" + "/" + id, function (data) {
-            console.log(data);
-            $("#name").val(data.name);
+            $("#name").val(data.role.name);
             $("#name").prop("disabled", true);
-            $("#guard_name").val(data.guard_name);
-            $("#guard_name").prop("disabled", true);
             $("#myModalLabel").html("Detail");
             $("#btnSimpan").hide();
             $("#errorList").html("");
+            $("#list-group").html("");
+            let listGroup = "";
+            $.each(data.role.permissions, function (key, value) {
+                listGroup +=
+                    '<li class="list-group-item py-1">' + value.name + "</li>";
+            });
+            $("#list-group").html(listGroup);
         });
     });
     $("body").on("click", "#hapus", function () {
@@ -124,37 +122,80 @@
                 success: function (data) {
                     console.log("Success:", data);
                     window.LaravelDataTables["roles-table"].ajax.reload();
-                    toastr.success("Data has been deleted successfully!");
+                    toastr.success(data.success);
                 },
                 error: function (data) {
                     console.log("Error:", data);
-                    toastr.error("There was an error deleting data!");
+                    toastr.error(
+                        "" +
+                            data.statusText +
+                            ": There was an error deleting data! "
+                    );
                 },
             });
         }
     });
     $("body").on("click", "#rekam", function () {
-        $("#myForm").trigger("reset");
-        $("#myModalLabel").html("Rekam");
-        $("#btnSimpan").html("Simpan");
-        $("#btnSimpan").show();
-        $("#errorList").html("");
-        $("#name").prop("disabled", false);
-        $("#guard_name").prop("disabled", false);
+        $.get("{{ route('roles.create') }}", function (data) {
+            $("#myForm").trigger("reset");
+            $("#myModalLabel").html("Rekam");
+            $("#btnSimpan").html("Simpan");
+            $("#btnSimpan").show();
+            $("#errorList").html("");
+            $("#list-group").html("");
+            $("#name").prop("disabled", false);
+            let listGroup = "";
+            $.each(data, function (key, value) {
+                listGroup +=
+                    '<li class="list-group-item py-1">' +
+                    '<input class="form-check-input me-1" type="checkbox" name="check[]" value="' +
+                    value.name +
+                    '" id="cek' +
+                    value.id +
+                    '">' +
+                    '<label class="form-check-label">' +
+                    value.name +
+                    "</label>" +
+                    "</li>";
+            });
+            $("#list-group").html(listGroup);
+        });
     });
 
     $("body").on("click", "#ubah", function () {
         const id = $(this).data("id");
         $.get("{{ route('roles.index') }}" + "/" + id, function (data) {
-            $("#id").val(data.id);
-            $("#name").val(data.name);
-            $("#guard_name").val(data.guard_name);
+            $("#id").val(data.role.id);
+            $("#name").val(data.role.name);
             $("#myModalLabel").html("Ubah");
             $("#btnSimpan").html("Ubah");
             $("#btnSimpan").show();
             $("#errorList").html("");
             $("#name").prop("disabled", false);
-            $("#guard_name").prop("disabled", false);
+            $("#list-group").html("");
+            let listGroup = "";
+            $.each(data.allPermissions, function (key, value) {
+                listGroup +=
+                    '<li class="list-group-item py-1">' +
+                    '<input class="form-check-input me-1" type="checkbox" name="check[]" value="' +
+                    value.name +
+                    '" id="cek' +
+                    value.id +
+                    '">' +
+                    '<label class="form-check-label">' +
+                    value.name +
+                    "</label>" +
+                    "</li>";
+            });
+            $("#list-group").html(listGroup);
+            $.each(data.allPermissions, function (index, item) {
+                var checkboxId = item.id;
+                $.each(data.permissions, function (index, item) {
+                    if (checkboxId == item.id) {
+                        $("#cek" + checkboxId).attr("checked", "checked");
+                    }
+                });
+            });
         });
     });
     $("body").on("click", "#btnSimpan", function (e) {
@@ -170,7 +211,7 @@
                     $("#myForm").trigger("reset");
                     $("#btnTutup").click();
                     window.LaravelDataTables["roles-table"].ajax.reload();
-                    toastr.success("Data has been created successfully!");
+                    toastr.success(data.success);
                 },
                 error: function (data) {
                     console.log(data.responseJSON.errors);
@@ -196,6 +237,7 @@
                     $("#btnTutup").click();
                     window.LaravelDataTables["roles-table"].ajax.reload();
                     toastr.success("Data has been updated successfully!");
+                    console.log(data);
                 },
                 error: function (data) {
                     console.log(data.responseJSON.errors);
@@ -208,6 +250,7 @@
                             "</div>";
                     });
                     $("#errorList").html(errorsHtml);
+                    console.log(data);
                 },
             });
         }

@@ -12,14 +12,6 @@
         <div class="navbar-content">
             <ul class="pc-navbar">
                 <li class="pc-item">
-                    <a href="/" class="pc-link">
-                        <span class="pc-micon"
-                            ><i class="ti ti-dashboard"></i
-                        ></span>
-                        <span class="pc-mtext">Dashboard</span>
-                    </a>
-                </li>
-                <li class="pc-item">
                     <a href="/home" class="pc-link">
                         <span class="pc-micon"
                             ><i class="ti ti-dashboard"></i
@@ -29,7 +21,7 @@
                 </li>
 
                 <li class="pc-item pc-caption">
-                    <label>UI Components</label>
+                    <label>Menu</label>
                     <i class="ti ti-dashboard"></i>
                 </li>
                 <li class="pc-item">
@@ -43,7 +35,7 @@
                 <li class="pc-item">
                     <a href="/card" class="pc-link">
                         <span class="pc-micon"
-                            ><i class="ti ti-color-swatch"></i
+                            ><i class="ti ti-folder"></i
                         ></span>
                         <span class="pc-mtext">Card</span>
                     </a>
@@ -58,7 +50,7 @@
                 </li>
 
                 <li class="pc-item pc-caption">
-                    <label>Other</label>
+                    <label>Lainnya</label>
                     <i class="ti ti-brand-chrome"></i>
                 </li>
                 <li class="pc-item pc-hasmenu">
@@ -105,19 +97,15 @@
                                     >
                                 </li>
                                 <li class="pc-item">
-                                    <a class="pc-link" href="#!">Menu</a>
+                                    <a
+                                        class="pc-link"
+                                        href="{{ route('menus.index') }}"
+                                        >Menu</a
+                                    >
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                </li>
-                <li class="pc-item">
-                    <a href="/login" class="pc-link">
-                        <span class="pc-micon"
-                            ><i class="ti ti-brand-chrome"></i
-                        ></span>
-                        <span class="pc-mtext">Login</span>
-                    </a>
                 </li>
             </ul>
         </div>

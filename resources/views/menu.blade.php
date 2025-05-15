@@ -26,6 +26,18 @@
                             <div class="mb-3" id="errorList"></div>
                             <input type="hidden" name="id" id="id" value="" />
                             <div class="mb-3">
+                                <label for="icon" class="form-label"
+                                    >Icon</label
+                                >
+                                <input
+                                    type="text"
+                                    name="icon"
+                                    class="form-control"
+                                    id="icon"
+                                    value=""
+                                />
+                            </div>
+                            <div class="mb-3">
                                 <label for="name" class="form-label"
                                     >Name</label
                                 >
@@ -38,37 +50,16 @@
                                 />
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label"
-                                    >Email</label
+                                <label for="url" class="form-label"
+                                    >Url</label
                                 >
                                 <input
                                     type="text"
-                                    name="email"
+                                    name="url"
                                     class="form-control"
-                                    id="email"
+                                    id="url"
                                     value=""
                                 />
-                            </div>
-                            <div class="mb-3">
-                                <label
-                                    for="password"
-                                    id="lbl-password"
-                                    class="form-label"
-                                    >Password</label
-                                >
-                                <input
-                                    type="text"
-                                    name="password"
-                                    class="form-control"
-                                    id="password"
-                                    value=""
-                                />
-                            </div>
-                            <div class="mb-3">
-                                <label for="name" class="form-label"
-                                    >Roles</label
-                                >
-                                <ul class="list-group" id="list-group"></ul>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -124,26 +115,17 @@
     });
     $("body").on("click", "#detail", function () {
         let id = $(this).data("id");
-        $.get("{{ route('users.index') }}" + "/" + id, function (data) {
+        $.get("{{ route('menus.index') }}" + "/" + id, function (data) {
             console.log(data);
-            $("#name").val(data.user.name);
+            $("#icon").val(data.icon);
+            $("#icon").prop("disabled", true);
+            $("#name").val(data.name);
             $("#name").prop("disabled", true);
-            $("#email").val(data.user.email);
-            $("#email").prop("disabled", true);
-            $("#password").val(data.user.password);
-            $("#password").prop("disabled", true);
+            $("#url").val(data.url);
+            $("#url").prop("disabled", true);
             $("#myModalLabel").html("Detail");
             $("#btnSimpan").hide();
-            $("#lbl-password").hide();
-            $("#password").hide();
             $("#errorList").html("");
-            $("#list-group").html("");
-            let listGroup = "";
-            $.each(data.user.roles, function (key, value) {
-                listGroup +=
-                    '<li class="list-group-item py-1">' + value.name + "</li>";
-            });
-            $("#list-group").html(listGroup);
         });
     });
     $("body").on("click", "#hapus", function () {
@@ -152,90 +134,43 @@
         if (confirm("Are you sure you want to delete?")) {
             $.ajax({
                 type: "DELETE",
-                url: "{{ route('users.store') }}" + "/" + id,
+                url: "{{ route('menus.store') }}" + "/" + id,
                 success: function (data) {
                     console.log("Success:", data);
-                    window.LaravelDataTables["users-table"].ajax.reload();
+                    window.LaravelDataTables["menus-table"].ajax.reload();
                     toastr.success("Data has been deleted successfully!");
                 },
                 error: function (data) {
                     console.log("Error:", data);
-                    toastr.error("There was an error deleting data!");
                 },
             });
         }
     });
     $("body").on("click", "#rekam", function () {
-        $.get("{{ route('users.create') }}", function (data) {
-            $("#myForm").trigger("reset");
-            $("#myModalLabel").html("Rekam");
-            $("#btnSimpan").html("Simpan");
-            $("#btnSimpan").show();
-            $("#errorList").html("");
-            $("#name").prop("disabled", false);
-            $("#email").prop("disabled", false);
-            $("#password").prop("disabled", false);
-            $("#lbl-password").show();
-            $("#password").show();
-            $("#list-group").html("");
-            let listGroup = "";
-            $.each(data, function (key, value) {
-                listGroup +=
-                    '<li class="list-group-item py-1">' +
-                    '<input class="form-check-input me-1" type="checkbox" name="check[]" value="' +
-                    value.name +
-                    '" id="cek' +
-                    value.id +
-                    '">' +
-                    '<label class="form-check-label">' +
-                    value.name +
-                    "</label>" +
-                    "</li>";
-            });
-            $("#list-group").html(listGroup);
-        });
+        $("#myForm").trigger("reset");
+        $("#myModalLabel").html("Rekam");
+        $("#btnSimpan").html("Simpan");
+        $("#btnSimpan").show();
+        $("#errorList").html("");
+        $("#icon").prop("disabled", false);
+        $("#name").prop("disabled", false);
+        $("#url").prop("disabled", false);
     });
 
     $("body").on("click", "#ubah", function () {
         const id = $(this).data("id");
-        $.get("{{ route('users.index') }}" + "/" + id, function (data) {
-            console.log(data);
-            $("#id").val(data.user.id);
-            $("#name").val(data.user.name);
-            $("#email").val(data.user.email);
+        $.get("{{ route('menus.index') }}" + "/" + id, function (data) {
+            $("#id").val(data.id);
+            $("#icon").val(data.icon);
+            $("#name").val(data.name);
+            $("#url").val(data.url);
             $("#myModalLabel").html("Ubah");
             $("#btnSimpan").html("Ubah");
             $("#btnSimpan").show();
             $("#errorList").html("");
+            $("#icon").prop("disabled", false);
             $("#name").prop("disabled", false);
-            $("#email").prop("disabled", false);
-            $("#password").prop("disabled", false);
-            $("#lbl-password").hide();
-            $("#password").hide();
-            $("#list-group").html("");
-            let listGroup = "";
-            $.each(data.allRoles, function (key, value) {
-                listGroup +=
-                    '<li class="list-group-item py-1">' +
-                    '<input class="form-check-input me-1" type="checkbox" name="check[]" value="' +
-                    value.name +
-                    '" id="cek' +
-                    value.id +
-                    '">' +
-                    '<label class="form-check-label">' +
-                    value.name +
-                    "</label>" +
-                    "</li>";
-            });
-            $("#list-group").html(listGroup);
-            $.each(data.allRoles, function (index, item) {
-                var checkboxId = item.id;
-                $.each(data.user.roles, function (index, item) {
-                    if (checkboxId == item.id) {
-                        $("#cek" + checkboxId).attr("checked", "checked");
-                    }
-                });
-            });
+            $("#url").prop("disabled", false);
         });
     });
     $("body").on("click", "#btnSimpan", function (e) {
@@ -244,13 +179,13 @@
         if ($(this).html() == "Simpan") {
             $.ajax({
                 data: $("#myForm").serialize(),
-                url: "{{ route('users.store') }}",
+                url: "{{ route('menus.store') }}",
                 type: "POST",
                 dataType: "json",
                 success: function (data) {
                     $("#myForm").trigger("reset");
                     $("#btnTutup").click();
-                    window.LaravelDataTables["users-table"].ajax.reload();
+                    window.LaravelDataTables["menus-table"].ajax.reload();
                     toastr.success("Data has been created successfully!");
                 },
                 error: function (data) {
@@ -269,13 +204,13 @@
         } else {
             $.ajax({
                 data: $("#myForm").serialize(),
-                url: "{{ route('users.index') }}" + "/" + id,
+                url: "{{ route('menus.index') }}" + "/" + id,
                 type: "PUT",
                 dataType: "json",
                 success: function (data) {
                     $("#myForm").trigger("reset");
                     $("#btnTutup").click();
-                    window.LaravelDataTables["users-table"].ajax.reload();
+                    window.LaravelDataTables["menus-table"].ajax.reload();
                     toastr.success("Data has been updated successfully!");
                 },
                 error: function (data) {

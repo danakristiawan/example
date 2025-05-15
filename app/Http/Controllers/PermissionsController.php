@@ -64,7 +64,6 @@ class PermissionsController extends Controller
     {
         return [
             'name' => 'required',
-            'guard_name' => 'required',
         ];
     }
 }

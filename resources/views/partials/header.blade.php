@@ -16,6 +16,7 @@
         </div>
         <div class="ms-auto">
             <ul class="list-unstyled">
+                @auth
                 <li class="dropdown pc-h-item header-user-profile">
                     <a
                         class="pc-head-link dropdown-toggle arrow-none me-0"
@@ -31,7 +32,8 @@
                             alt="user-image"
                             class="user-avtar"
                         />
-                        <span>Stebin Ben</span>
+
+                        <span>{{ auth()->user()->name }}</span>
                     </a>
                     <div
                         class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown"
@@ -46,16 +48,33 @@
                                     />
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h6 class="mb-1">Stebin Ben</h6>
-                                    <span>UI/UX Designer</span>
+                                    <h6 class="mb-1">
+                                        {{ auth()->user()->name }}
+                                    </h6>
+                                    <span>{{ auth()->user()->email }}</span>
                                 </div>
-                                <a href="#!" class="pc-head-link bg-transparent"
-                                    ><i class="ti ti-power text-danger"></i
-                                ></a>
+                                <a
+                                    class="pc-head-link bg-transparent"
+                                    href="#"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();"
+                                >
+                                    <i class="ti ti-power text-danger"></i>
+                                </a>
+
+                                <form
+                                    id="logout-form"
+                                    action="{{ route('logout') }}"
+                                    method="POST"
+                                    class="d-none"
+                                >
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                     </div>
                 </li>
+                @endauth
             </ul>
         </div>
     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\DataTables\UsersDataTable;
+use Spatie\Permission\Models\Role;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -20,13 +21,21 @@ class UsersController extends Controller
         return $dataTable->render('user');
     }
 
+    public function create()
+    {
+        $data = Role::get();
+        return response()->json($data);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $request->validate($this->validation());
-        User::create($request->all());
+        $user = User::create($request->all());
+        $roles = $request->check;
+        $user->syncRoles($roles);
         return response()->json(['success' => 'Data has been created successfully!']);
     }
 
@@ -35,7 +44,12 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return response()->json($user);
+        $data = [
+            'user' => $user,
+            'roles' => $user->hasExactRoles(Role::all()),
+            'allRoles' => Role::get(),
+        ];
+        return response()->json($data);
     }
 
     /**
@@ -44,7 +58,12 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate($this->validation());
-        $user->fill($request->post())->save();
+        $user->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+        ])->save();
+        $roles = $request->check;
+        $user->syncRoles($roles);
         return response()->json(['success' => 'Data has been updated successfully!']);
     }
 

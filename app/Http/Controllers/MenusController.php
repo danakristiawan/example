@@ -2,29 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu;
 use Illuminate\Http\Request;
-use App\DataTables\RolesDataTable;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\DataTables\MenusDataTable;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
-class RolesController extends Controller
+class MenusController extends Controller
 {
 
     
     /**
      * Display a listing of the resource.
      */
-    public function index(RolesDataTable $dataTable)
+    public function index(MenusDataTable $dataTable)
     {
-        return $dataTable->render('role');
-    }
-
-    public function create()
-    {
-        $data = Permission::get();
-        return response()->json($data);
+        return $dataTable->render('menu');
     }
 
     /**
@@ -33,43 +26,34 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->validation());
-        $permission = $request->check;
-        $role = Role::create(['name' => $request->name]);
-        $role->syncPermissions($permission);
+        Menu::create($request->all());
         return response()->json(['success' => 'Data has been created successfully!']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show(Menu $menu)
     {
-        $data = [
-            'role' => $role,
-            'permissions' => $role->permissions,
-            'allPermissions' => Permission::get(),
-        ];
-        return response()->json($data);
+        return response()->json($menu);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Menu $menu)
     {
         $request->validate($this->validation());
-        $role->fill($request->post())->save();
-        $permissions = $request->check;
-        $role->syncPermissions($permissions);
+        $menu->fill($request->post())->save();
         return response()->json(['success' => 'Data has been updated successfully!']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(Menu $menu)
     {
-        $role->delete();
+        $menu->delete();
         return response()->json(['success' => 'Data has been deleted successfully!']);
     }
 
@@ -79,7 +63,9 @@ class RolesController extends Controller
     public function validation()
     {
         return [
+            'icon' => 'required',
             'name' => 'required',
+            'url' => 'required',
         ];
     }
 }
