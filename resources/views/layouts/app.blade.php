@@ -10,6 +10,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         @include('partials.styles')
+        <style>
+            .cards {
+                transition: all 0.2s ease;
+                cursor: pointer;
+            }
+
+            .cards:hover {
+                box-shadow: 5px 6px 6px 2px #e9ecef;
+                transform: scale(1.05);
+            }
+        </style>
     </head>
 
     <body data-pc-theme="light">

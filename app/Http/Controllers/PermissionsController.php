@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Spatie\Permission\Models\Permission;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use App\DataTables\PermissionsDataTable;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -20,13 +21,21 @@ class PermissionsController extends Controller
         return $dataTable->render('permission');
     }
 
+    public function create()
+    {
+        $data = Menu::get();
+        return response()->json($data);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $request->validate($this->validation());
-        Permission::create($request->all());
+        $menu = $request->check;
+        $permission = Permission::create(['name' => $request->name]);
+        $permission->menus()->attach($menu);
         return response()->json(['success' => 'Data has been created successfully!']);
     }
 
@@ -35,7 +44,12 @@ class PermissionsController extends Controller
      */
     public function show(Permission $permission)
     {
-        return response()->json($permission);
+        $data = [
+            'permission' => $permission,
+            'menus' => $permission->menus,
+            'allMenus' => Menu::get(),
+        ];
+        return response()->json($data);
     }
 
     /**
@@ -45,6 +59,9 @@ class PermissionsController extends Controller
     {
         $request->validate($this->validation());
         $permission->fill($request->post())->save();
+        $menu = $request->check;
+        $permission->menus()->detach($permission->menus);
+        $permission->menus()->attach($menu);
         return response()->json(['success' => 'Data has been updated successfully!']);
     }
 

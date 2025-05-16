@@ -22,7 +22,6 @@ Route::get('/card', function () {
 
 
 
-
 Route::controller(App\Http\Controllers\LoginController::class)->group(function () {
     Route::get('login', 'login')->name('login')->middleware('guest');
     Route::post('authenticate', 'authenticate')->name('authenticate');

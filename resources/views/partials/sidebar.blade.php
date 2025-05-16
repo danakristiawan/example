@@ -22,32 +22,21 @@
 
                 <li class="pc-item pc-caption">
                     <label>Menu</label>
-                    <i class="ti ti-dashboard"></i>
                 </li>
+                @isset($landing) @foreach($permissions as $r)
+                @foreach($r->menus()->get() as $s)
+
                 <li class="pc-item">
-                    <a href="/chart" class="pc-link">
+                    <a href="#" class="pc-link">
+                        <!-- <a href="{{ route(''.$s->url.'') }}" class="pc-link"> -->
                         <span class="pc-micon"
-                            ><i class="ti ti-color-swatch"></i
+                            ><i class="{{ $s->icon }}"></i
                         ></span>
-                        <span class="pc-mtext">Chart</span>
+                        <span class="pc-mtext">{{ $s->name }}</span>
                     </a>
                 </li>
-                <li class="pc-item">
-                    <a href="/card" class="pc-link">
-                        <span class="pc-micon"
-                            ><i class="ti ti-folder"></i
-                        ></span>
-                        <span class="pc-mtext">Card</span>
-                    </a>
-                </li>
-                <li class="pc-item">
-                    <a href="/flights" class="pc-link">
-                        <span class="pc-micon"
-                            ><i class="ti ti-color-swatch"></i
-                        ></span>
-                        <span class="pc-mtext">Flight</span>
-                    </a>
-                </li>
+
+                @endforeach @endforeach @endisset
 
                 <li class="pc-item pc-caption">
                     <label>Lainnya</label>

@@ -37,6 +37,12 @@
                                     value=""
                                 />
                             </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label"
+                                    >Menus</label
+                                >
+                                <ul class="list-group" id="list-group"></ul>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button
@@ -93,11 +99,18 @@
         let id = $(this).data("id");
         $.get("{{ route('permissions.index') }}" + "/" + id, function (data) {
             console.log(data);
-            $("#name").val(data.name);
+            $("#name").val(data.permission.name);
             $("#name").prop("disabled", true);
             $("#myModalLabel").html("Detail");
             $("#btnSimpan").hide();
             $("#errorList").html("");
+            $("#list-group").html("");
+            let listGroup = "";
+            $.each(data.menus, function (key, value) {
+                listGroup +=
+                    '<li class="list-group-item py-1">' + value.name + "</li>";
+            });
+            $("#list-group").html(listGroup);
         });
     });
     $("body").on("click", "#hapus", function () {
@@ -120,24 +133,66 @@
         }
     });
     $("body").on("click", "#rekam", function () {
-        $("#myForm").trigger("reset");
-        $("#myModalLabel").html("Rekam");
-        $("#btnSimpan").html("Simpan");
-        $("#btnSimpan").show();
-        $("#errorList").html("");
-        $("#name").prop("disabled", false);
+        $.get("{{ route('permissions.create') }}", function (data) {
+            $("#myForm").trigger("reset");
+            $("#myModalLabel").html("Rekam");
+            $("#btnSimpan").html("Simpan");
+            $("#btnSimpan").show();
+            $("#errorList").html("");
+            $("#name").prop("disabled", false);
+            $("#list-group").html("");
+            let listGroup = "";
+            $.each(data, function (key, value) {
+                listGroup +=
+                    '<li class="list-group-item py-1">' +
+                    '<input class="form-check-input me-1" type="checkbox" name="check[]" value="' +
+                    value.id +
+                    '" id="cek' +
+                    value.id +
+                    '">' +
+                    '<label class="form-check-label">' +
+                    value.name +
+                    "</label>" +
+                    "</li>";
+            });
+            $("#list-group").html(listGroup);
+        });
     });
 
     $("body").on("click", "#ubah", function () {
         const id = $(this).data("id");
         $.get("{{ route('permissions.index') }}" + "/" + id, function (data) {
-            $("#id").val(data.id);
-            $("#name").val(data.name);
+            $("#id").val(data.permission.id);
+            $("#name").val(data.permission.name);
             $("#myModalLabel").html("Ubah");
             $("#btnSimpan").html("Ubah");
             $("#btnSimpan").show();
             $("#errorList").html("");
             $("#name").prop("disabled", false);
+            $("#list-group").html("");
+            let listGroup = "";
+            $.each(data.allMenus, function (key, value) {
+                listGroup +=
+                    '<li class="list-group-item py-1">' +
+                    '<input class="form-check-input me-1" type="checkbox" name="check[]" value="' +
+                    value.id +
+                    '" id="cek' +
+                    value.id +
+                    '">' +
+                    '<label class="form-check-label">' +
+                    value.name +
+                    "</label>" +
+                    "</li>";
+            });
+            $("#list-group").html(listGroup);
+            $.each(data.allMenus, function (index, item) {
+                var checkboxId = item.id;
+                $.each(data.menus, function (index, item) {
+                    if (checkboxId == item.id) {
+                        $("#cek" + checkboxId).attr("checked", "checked");
+                    }
+                });
+            });
         });
     });
     $("body").on("click", "#btnSimpan", function (e) {
@@ -154,9 +209,11 @@
                     $("#btnTutup").click();
                     window.LaravelDataTables["permissions-table"].ajax.reload();
                     toastr.success("Data has been created successfully!");
+                    console.log(data);
                 },
                 error: function (data) {
-                    console.log(data.responseJSON.errors);
+                    console.log(data);
+                    // console.log(data.responseJSON.errors);
                     let err = data.responseJSON.errors;
                     let errorsHtml = "";
                     $.each(err, function (key, value) {
@@ -179,9 +236,11 @@
                     $("#btnTutup").click();
                     window.LaravelDataTables["permissions-table"].ajax.reload();
                     toastr.success("Data has been updated successfully!");
+                    console.log(data);
                 },
                 error: function (data) {
-                    console.log(data.responseJSON.errors);
+                    console.log(data);
+                    // console.log(data.responseJSON.errors);
                     let err = data.responseJSON.errors;
                     let errorsHtml = "";
                     $.each(err, function (key, value) {
