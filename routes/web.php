@@ -29,13 +29,9 @@ Route::controller(App\Http\Controllers\LoginController::class)->group(function (
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('flights', FlightsController::class);
+Route::get('/chart', [ChartController::class, 'index']);
 
-Route::group(['middleware' => ['auth','role:User']], function () {
-    Route::resource('flights', FlightsController::class);
-});
-Route::group(['middleware' => ['auth','role:User']], function () {
-    Route::get('/chart', [ChartController::class, 'index']);
-});
 
 Route::resource('permissions', PermissionsController::class);
 Route::resource('roles', RolesController::class);
