@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Home | Mantis Bootstrap 5 Admin Template</title>
+        <title>Home | Apik</title>
         <meta charset="utf-8" />
         <meta
             name="viewport"

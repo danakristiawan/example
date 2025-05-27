@@ -28,7 +28,7 @@
                         aria-expanded="false"
                     >
                         <img
-                            src="../assets/images/user/avatar-2.jpg"
+                            src="../assets/images/avatar-2.jpg"
                             alt="user-image"
                             class="user-avtar"
                         />
@@ -42,7 +42,7 @@
                             <div class="d-flex mb-1">
                                 <div class="flex-shrink-0">
                                     <img
-                                        src="../assets/images/user/avatar-2.jpg"
+                                        src="../assets/images/avatar-2.jpg"
                                         alt="user-image"
                                         class="user-avtar wid-35"
                                     />

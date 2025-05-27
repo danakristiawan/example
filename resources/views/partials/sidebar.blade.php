@@ -1,7 +1,7 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
         <div class="m-header">
-            <a href="../dashboard/index.html" class="b-brand text-primary">
+            <a href="{{ route('home') }}" class="b-brand text-primary">
                 <img
                     src="{{ asset('assets/images/logo-20.svg') }}"
                     class="img-fluid logo-lg"
@@ -28,7 +28,6 @@
 
                 <li class="pc-item">
                     <a href="#" class="pc-link">
-                        <!-- <a href="{{ route(''.$s->url.'') }}" class="pc-link"> -->
                         <span class="pc-micon"
                             ><i class="{{ $s->icon }}"></i
                         ></span>
@@ -70,6 +69,13 @@
                                         >Permissions</a
                                     >
                                 </li>
+                                <li class="pc-item">
+                                    <a
+                                        class="pc-link"
+                                        href="{{ route('menus.index') }}"
+                                        >Menu</a
+                                    >
+                                </li>
                             </ul>
                         </li>
                         <li class="pc-item pc-hasmenu">
@@ -83,13 +89,6 @@
                                         class="pc-link"
                                         href="{{ route('users.index') }}"
                                         >User</a
-                                    >
-                                </li>
-                                <li class="pc-item">
-                                    <a
-                                        class="pc-link"
-                                        href="{{ route('menus.index') }}"
-                                        >Menu</a
                                     >
                                 </li>
                             </ul>
