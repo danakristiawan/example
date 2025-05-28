@@ -9,7 +9,8 @@
         />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        @include('partials.styles')
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- @include('partials.styles') -->
         <style>
             .cards {
                 transition: all 0.2s ease;
@@ -36,6 +37,7 @@
             </div>
         </div>
 
-        @include('partials.scripts') @stack('scripts') @stack('js')
+        <!-- @include('partials.scripts') -->
+        @stack('scripts') @stack('js')
     </body>
 </html>
